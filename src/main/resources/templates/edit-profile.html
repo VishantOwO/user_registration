@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Parking Spots - Edit Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .sidebar {
+        background-color: #2c3e50;
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+    }
+    .main-content {
+        padding: 20px;
+    }
+    .profile-header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    body {
+        background-image: url('/images/parking-bg.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 sidebar">
+      <h3>Edit Profile</h3>
+      <ul class="list-unstyled">
+        <li><a href="/profile" class="text-white text-decoration-none">View Profile</a></li>
+        <li><a href="/dashboard" class="text-white text-decoration-none">Back to Dashboard</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-9 main-content">
+      <div class="profile-header">
+        <h2>Edit Your Profile</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+          <form th:action="@{/profile/update}" th:object="${userProfile}" method="post">
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+              <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" th:field="*{email}">
+              <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+              <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea class="form-control" id="address" th:field="*{address}" rows="3"></textarea>
+              <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <a href="/profile" class="btn btn-secondary">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

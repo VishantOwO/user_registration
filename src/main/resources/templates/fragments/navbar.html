@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">SMART PARKING SPOTS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Left-aligned menu items -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <!-- Show dashboard only for logged-in users -->
+                <li class="nav-item" th:if="${session.userId != null}">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <!-- Profile link for logged-in users -->
+                <li class="nav-item" th:if="${session.userId != null}">
+                    <a class="nav-link" href="/profile">
+                        <i class="bi bi-person-circle"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right-aligned menu items -->
+            <ul class="navbar-nav">
+                <!-- Show user name for logged-in users -->
+                <li class="nav-item" th:if="${session.userId != null}">
+                        <span class="nav-link">
+                            Welcome, <span th:text="${session.userFullName}">User</span>
+                        </span>
+                </li>
+                <!-- Login/Register for logged-out users -->
+                <li class="nav-item" th:if="${session.userId == null}">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item" th:if="${session.userId == null}">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <!-- Logout for logged-in users -->
+                <li class="nav-item" th:if="${session.userId != null}">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
