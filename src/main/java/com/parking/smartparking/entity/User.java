@@ -2,6 +2,8 @@ package com.parking.smartparking.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -34,6 +36,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean active;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() {
@@ -107,6 +112,8 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+
 
     @PrePersist
     protected void onCreate() {
