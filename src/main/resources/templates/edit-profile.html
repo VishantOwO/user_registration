@@ -4,85 +4,212 @@
   <meta charset="UTF-8">
   <title>Smart Parking Spots - Edit Profile</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    .sidebar {
-        background-color: #2c3e50;
-        min-height: 100vh;
-        padding: 20px;
-        color: white;
-    }
-    .main-content {
-        padding: 20px;
-    }
-    .profile-header {
-        background-color: #007bff;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
     body {
-        background-image: url('/images/parking-bg.jpg');
-        background-size: cover;
-        background-position: center;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, system-ui, sans-serif;
     }
+
+    .navbar {
+      background-color: #2c3e50 !important;
+      padding: 0.5rem 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 60px;
+    }
+
+    .navbar-brand {
+      color: white !important;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0;
+    }
+
+    .nav-link {
+      color: white !important;
+      padding: 0.5rem 1rem !important;
+    }
+
+    .nav-link.active {
+      color: #3498db !important;
+    }
+
+    .sidebar {
+      background-color: #2c3e50;
+      min-height: calc(100vh - 60px);
+      padding: 20px;
+      color: white;
+      margin-top: 60px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h3 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 8px 15px;
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: rgba(52, 152, 219, 0.1);
+      color: #3498db;
+    }
+
+    .main-content {
+      margin-top: 60px;
+      padding: 2rem;
+      background-color: #f8f9fa;
+    }
+
+    .profile-header {
+      background-color: var(--header-blue);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      border: none;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+
+    .btn-secondary {
+      background-color: #95a5a6;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #7f8c8d;
+    }
+
+    .text-danger {
+      font-size: 0.875rem;
+    }
+	:root {
+	           --header-blue: #3498db;
+	           --button-green: #27ae60;
+	           --panel-width: 300px;
+	       }
+		   .header-blue {
+		             background-color: var(--header-blue);
+		             color: white;
+		             padding: 15px;
+		             border-radius: 4px;
+		             margin-bottom: 20px;
+		             text-align: center;
+		         }
   </style>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3 sidebar">
-      <h3>Edit Profile</h3>
-      <ul class="list-unstyled">
-        <li><a href="/profile" class="text-white text-decoration-none">View Profile</a></li>
-        <li><a href="/dashboard" class="text-white text-decoration-none">Back to Dashboard</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container d-flex align-items-center">
+      <span class="navbar-brand">SMART PARKING SPOTS</span>
+      <div class="navbar-nav ms-auto flex-row">
+        <a class="nav-link" th:href="@{/}">Home</a>
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </div>
     </div>
+  </nav>
 
-    <div class="col-md-9 main-content">
-      <div class="profile-header">
-        <h2>Edit Your Profile</h2>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 sidebar">
+        <h3>Edit Profile</h3>
+        <ul>
+          <li><a href="/profile"><i class="fas fa-user me-2"></i> View Profile</a></li>
+          <li><a href="/dashboard"><i class="fas fa-arrow-left me-2"></i> Back to Dashboard</a></li>
+        </ul>
       </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+      <!-- Main Content -->
+      <div class="col-md-9 main-content">
+        <div class="header-blue">
+          <h2>Edit Your Profile</h2>
+        </div>
 
-          <form th:action="@{/profile/update}" th:object="${userProfile}" method="post">
-            <div class="mb-3">
-              <label for="fullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
-              <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
-            </div>
+        <div class="card">
+          <div class="card-body">
+            <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" th:field="*{email}">
-              <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-            </div>
+            <form th:action="@{/profile/update}" th:object="${userProfile}" method="post">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+                <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+              </div>
 
-            <div class="mb-3">
-              <label for="phoneNumber" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
-              <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
-            </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}">
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+              </div>
 
-            <div class="mb-3">
-              <label for="address" class="form-label">Address</label>
-              <textarea class="form-control" id="address" th:field="*{address}" rows="3"></textarea>
-              <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
-            </div>
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+                <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+              </div>
 
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="/profile" class="btn btn-secondary">Cancel</a>
-          </form>
+              <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" th:field="*{address}" rows="3"></textarea>
+                <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update Profile</button>
+              <a href="/profile" class="btn btn-secondary">Cancel</a>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

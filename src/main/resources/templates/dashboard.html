@@ -4,189 +4,374 @@
     <meta charset="UTF-8">
     <title>Smart Parking Spots - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, system-ui, sans-serif;
+        }
+
+        .navbar {
+            background-color: #2c3e50 !important;
+            padding: 0.5rem 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 60px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: white !important;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .nav-link.active {
+            color: #3498db !important;
+        }
+
+        :root {
+            --header-blue: #3498db;
+            --button-green: #27ae60;
+            --panel-width: 300px;
+        }
+
         .sidebar {
             background-color: #2c3e50;
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
             padding: 20px;
             color: white;
+            margin-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
+
         .sidebar h3 {
-            margin-bottom: 30px;
             color: white;
             font-size: 1.2rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .sidebar ul {
             list-style: none;
             padding: 0;
         }
+
         .sidebar ul li {
             margin-bottom: 15px;
         }
+
         .sidebar ul li a {
             color: white;
             text-decoration: none;
             display: block;
-            padding: 8px 0;
-            transition: 0.3s;
+            padding: 8px 15px;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
         }
+
         .sidebar ul li a:hover {
-            padding-left: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #3498db;
         }
+
         .main-content {
-            padding: 20px;
+            margin-top: 60px;
+            padding: 2rem;
+            background-color: #f8f9fa;
         }
+
         .dashboard-header {
-            background-color: #007bff;
+            background-color: var(--header-blue);
             color: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .stats-card {
+            background: white;
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
+
         .stats-card:hover {
             transform: translateY(-5px);
         }
-        .navbar {
-            background-color: Transparent !important;
+
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
         }
-        body {
-            background-image: url('/images/parking-bg.jpg');
-            background-size: cover;
-            background-position: center;
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem 1.5rem;
         }
+
+        .card-title {
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .btn {
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--header-blue);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--button-green);
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #219a52;
+        }
+
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
         .icon-large {
             font-size: 2rem;
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
         }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+		/* Slider Panel Styles */
+			.slider-panel {
+			       position: fixed;
+			       top: 60px;
+			       left: calc(-1 * var(--panel-width));
+			       width: var(--panel-width);
+			       height: calc(100vh - 60px);
+			       background-color: #2c3e50;
+			       color: white;
+			       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+			       transition: left 0.3s ease-in-out;
+			       z-index: 999;
+			       padding: 20px;
+			   }
+
+			   .slider-panel.open {
+			       left: 0;
+			   }
+
+			   .panel-header {
+			       font-size: 1.2rem;
+			       font-weight: bold;
+			       margin-bottom: 20px;
+			       border-bottom: 1px solid #eee;
+			   }
+
+			   .panel-content ul {
+			       list-style: none;
+			       padding: 0;
+			   }
+
+			   .panel-content ul li {
+			       margin-bottom: 15px;
+			   }
+
+			   .panel-content ul li a {
+			       color: white;
+			       text-decoration: none;
+			       display: block;
+			       padding: 8px 0;
+			       border-bottom: 1px solid #444;
+			       transition: color 0.2s;
+			   }
+
+			   .panel-content ul li a:hover {
+			       color: #3498db;
+			   }
+			   .menu-icon {
+			              font-size: 1.5rem;
+			              color: white;
+			              cursor: pointer;
+			              margin-right: 10px;
+			          }
     </style>
 </head>
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 sidebar">
-            <h3>Dashboard Menu</h3>
-            <ul>
-                <li><a href="/dashboard"><i class="bi bi-speedometer2"></i> Overview</a></li>
-                <li><a href="/profile"><i class="bi bi-person"></i> My Profile</a></li>
-                <li><a href="/bookings"><i class="bi bi-calendar-check"></i> My Bookings</a></li>
-                <li><a href="/vehicles"><i class="bi bi-car-front"></i> My Vehicles</a></li>
-                <li><a href="/parking-history"><i class="bi bi-clock-history"></i> Parking History</a></li>
-                <li><a href="/payments"><i class="bi bi-credit-card"></i> Payment History</a></li>
-            </ul>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container d-flex align-items-center">
+            <span class="menu-icon" onclick="togglePanel()">☰</span>
+            <span class="navbar-brand">SMART PARKING SPOTS</span>
+            <div class="navbar-nav ms-auto flex-row">
+                <a class="nav-link" th:href="@{/}">Home</a>
+                <a class="nav-link" href="#">Smart Spots</a>
+                <a class="nav-link" href="#">Booking</a>
+                <a class="nav-link" href="#">Addon Services</a>
+                <a class="nav-link" href="#">EV Charging</a>
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </div>
         </div>
-
-        <!-- Main Content -->
-        <div class="col-md-9 main-content">
-            <div class="dashboard-header">
-                <h2>Welcome, <span th:text="${userFullName}">User</span>!</h2>
-
+    </nav>
+	<div class="slider-panel" id="sliderPanel">
+		    <div class="panel-header">User Registration</div>
+		    <div class="panel-content">
+		        <ul>
+		            <li><a th:href="@{/register}">Register new User</a></li>
+		            <li><a href="/profile/edit">Update Profile</a></li>
+		            <li><a href="#">View User by Vehicle</a></li>
+		            <li><a href="#">Modify User Contact Info</a></li>
+		            <li><a href="#">Modify User Vehicle Info</a></li>
+		            <li><a href="/profile">Delete User Account</a></li>
+		        </ul>
+		    </div>
+		</div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h3>Dashboard Menu</h3>
+                <ul>
+                    <li><a href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i> Overview</a></li>
+                    <li><a href="/profile"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                    <li><a href="/bookings"><i class="fas fa-calendar-check me-2"></i> My Bookings</a></li>
+                    <li><a href="/vehicles"><i class="fas fa-car me-2"></i> My Vehicles</a></li>
+                    <li><a href="/parking-history"><i class="fas fa-history me-2"></i> Parking History</a></li>
+                    <li><a href="/payments"><i class="fas fa-credit-card me-2"></i> Payment History</a></li>
+                </ul>
             </div>
 
-            <!-- Quick Stats Row -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="card stats-card bg-primary text-white text-center">
-                        <div class="card-body">
-                            <i class="bi bi-p-square-fill icon-large"></i>
-                            <h5 class="card-title">Available Spots</h5>
-                            <h3 class="card-text">15</h3>
-                        </div>
-                    </div>
+            <!-- Main Content -->
+            <div class="col-md-9 main-content">
+                <div class="dashboard-header">
+                    <h2>Welcome, <span th:text="${userFullName}">User</span>!</h2>
                 </div>
-                <div class="col-md-3">
-                    <div class="card stats-card bg-success text-white text-center">
-                        <div class="card-body">
-                            <i class="bi bi-car-front-fill icon-large"></i>
-                            <h5 class="card-title">Active Bookings</h5>
-                            <h3 class="card-text">2</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card stats-card bg-info text-white text-center">
-                        <div class="card-body">
-                            <i class="bi bi-clock-history icon-large"></i>
-                            <h5 class="card-title">Total Hours</h5>
-                            <h3 class="card-text">48</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card stats-card bg-warning text-white text-center">
-                        <div class="card-body">
-                            <i class="bi bi-currency-dollar icon-large"></i>
-                            <h5 class="card-title">Amount Spent</h5>
-                            <h3 class="card-text">$120</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Recent Activity and Quick Actions -->
-            <div class="row">
-                <!-- Recent Activity -->
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Recent Activity</h5>
+                <!-- Quick Stats Row -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card text-center p-3">
+                            <i class="fas fa-parking icon-large text-primary"></i>
+                            <h5>Available Spots</h5>
+                            <h3 class="text-primary">15</h3>
                         </div>
-                        <div class="card-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">Parking Spot Booked</h6>
-                                        <small>3 hours ago</small>
-                                    </div>
-                                    <p class="mb-1">Spot A12 - 2 hours duration</p>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">Payment Completed</h6>
-                                        <small>Yesterday</small>
-                                    </div>
-                                    <p class="mb-1">$25 for Spot B05</p>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">Vehicle Added</h6>
-                                        <small>2 days ago</small>
-                                    </div>
-                                    <p class="mb-1">New vehicle registered: KA-01-XX-1234</p>
-                                </a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center p-3">
+                            <i class="fas fa-car icon-large text-success"></i>
+                            <h5>Active Bookings</h5>
+                            <h3 class="text-success">2</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center p-3">
+                            <i class="fas fa-clock icon-large text-info"></i>
+                            <h5>Total Hours</h5>
+                            <h3 class="text-info">48</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center p-3">
+                            <i class="fas fa-dollar-sign icon-large text-warning"></i>
+                            <h5>Amount Spent</h5>
+                            <h3 class="text-warning">$120</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity and Quick Actions -->
+                <div class="row">
+                    <!-- Recent Activity -->
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Recent Activity</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Parking Spot Booked</h6>
+                                            <small>3 hours ago</small>
+                                        </div>
+                                        <p class="mb-1">Spot A12 - 2 hours duration</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Payment Completed</h6>
+                                            <small>Yesterday</small>
+                                        </div>
+                                        <p class="mb-1">$25 for Spot B05</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Vehicle Added</h6>
+                                            <small>2 days ago</small>
+                                        </div>
+                                        <p class="mb-1">New vehicle registered: KA-01-XX-1234</p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Quick Actions -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Quick Actions</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <a href="/book-spot" class="btn btn-primary">
-                                    <i class="bi bi-plus-circle"></i> Book Parking Spot
-                                </a>
-                                <a href="/add-vehicle" class="btn btn-secondary">
-                                    <i class="bi bi-car-front"></i> Add New Vehicle
-                                </a>
-                                <a href="/view-map" class="btn btn-info text-white">
-                                    <i class="bi bi-map"></i> View Parking Map
-                                </a>
-                                <a href="/payments" class="btn btn-success">
-                                    <i class="bi bi-credit-card"></i> Make Payment
-                                </a>
+                    <!-- Quick Actions -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-3">
+                                    <a href="/book-spot" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle me-2"></i> Book Parking Spot
+                                    </a>
+                                    <a href="/add-vehicle" class="btn btn-secondary">
+                                        <i class="fas fa-car me-2"></i> Add New Vehicle
+                                    </a>
+                                    <a href="/view-map" class="btn btn-info text-white">
+                                        <i class="fas fa-map me-2"></i> View Parking Map
+                                    </a>
+                                    <a href="/payments" class="btn btn-success">
+                                        <i class="fas fa-credit-card me-2"></i> Make Payment
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,8 +379,16 @@
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+	    function togglePanel() {
+	        const panel = document.getElementById('sliderPanel');
+	        const mainContent = document.getElementById('mainContent');
+	        panel.classList.toggle('open');
+	        mainContent.classList.toggle('panel-open');
+	    }
+	</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>
 </html>

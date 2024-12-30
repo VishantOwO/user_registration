@@ -2,88 +2,285 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>PasPark - Smart Parking Solutions</title>
+    <title>Smart Parking System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero-section {
-            position: relative;
-            min-height: 100vh;
-            background: linear-gradient(rgba(0, 47, 75, 0.8), rgba(0, 47, 75, 0.8)),
-                        url('/api/placeholder/1920/1080') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Ensure the background covers the entire screen */
+		:root {
+		          --header-blue: #3498db;
+		          --button-green: #27ae60;
+		          --panel-width: 300px;
+		      }
+			  html, body {
+			           height: 100%;
+			           margin: 0; /* Remove default margins */
+			           padding: 0; /* Remove default padding */
+			       }
+        body {
+            background-image: url('images/background.webp'); /* Path to your image */
+            background-size: cover; /* Ensure the image covers the entire screen */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+        }			.slider-panel {
+					       position: fixed;
+					       top: 60px;
+					       left: calc(-1 * var(--panel-width));
+					       width: var(--panel-width);
+					       height: calc(100vh - 60px);
+					       background-color: #2c3e50;
+					       color: white;
+					       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+					       transition: left 0.3s ease-in-out;
+					       z-index: 999;
+					       padding: 20px;
+					   }
+
+					   .slider-panel.open {
+					       left: 0;
+					   }
+
+					   .panel-header {
+					       font-size: 1.2rem;
+					       font-weight: bold;
+					       margin-bottom: 20px;
+					       border-bottom: 1px solid #eee;
+					   }
+
+					   .panel-content ul {
+					       list-style: none;
+					       padding: 0;
+					   }
+
+					   .panel-content ul li {
+					       margin-bottom: 15px;
+					   }
+
+					   .panel-content ul li a {
+					       color: white;
+					       text-decoration: none;
+					       display: block;
+					       padding: 8px 0;
+					       border-bottom: 1px solid #444;
+					       transition: color 0.2s;
+					   }
+
+					   .panel-content ul li a:hover {
+					       color: #3498db;
+					   }
+					   .menu-icon {
+					              font-size: 1.5rem;
+					              color: white;
+					              cursor: pointer;
+					              margin-right: 10px;
+					          }
+
+        .container {
+            height: 100%; /* Ensure the container spans the full height of the viewport */
+            display: flex; /* Use flexbox to center the content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
         }
 
-        .hero-content {
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-        }
-
-        .search-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+        .jumbotron {
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for readability */
+            color: white; /* Text color */
+            padding: 30px;
             border-radius: 10px;
-            backdrop-filter: blur(5px);
+            text-align: center;
         }
 
-        .search-btn {
-            background-color: #FF6B5B;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        /* Styling for smaller heading */
+        .small-heading {
+            font-size: 1.5rem;
+            font-weight: normal;
         }
 
-        .search-btn:hover {
-            background-color: #FF5242;
+        /* Styling for large and bold headings */
+        .large-heading {
+            font-size: 3rem;
+            font-weight: bold;
         }
 
-        /* Style for the navbar - keep your existing navbar styles */
-        .navbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: transparent !important;
-            padding: 1rem 0;
+        /* Styling for the dynamic booking words */
+        #smart-parking-type {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: white;
+            display: inline-block;
+            white-space: nowrap; /* Prevent wrapping of words */
+            opacity: 0; /* Initially invisible */
+            overflow: hidden; /* Hide overflow text */
+            border-right: 4px solid rgba(255, 255, 255, 0.75); /* Cursor effect */
+            animation: typing 3s steps(30) 1, blink 0.75s step-end infinite, scaleEffect 3s 1 forwards;
         }
 
-        .form-control {
-            height: 50px;
-            font-size: 1rem;
+        /* Typing effect */
+        @keyframes typing {
+            from {
+                width: 0;
+                opacity: 1;
+            }
+            to {
+                width: 100%;
+                opacity: 1;
+            }
         }
+
+        /* Cursor blink effect */
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Scaling effect for animation */
+        @keyframes scaleEffect {
+            0% {
+                transform: scale(0.8);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Styling for the welcome text */
+        #welcome-text {
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #ff5733; /* Custom button color */
+            border-color: #ff5733;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff6f4a;
+            border-color: #ff6f4a;
+        }
+		.navbar {
+		            background-color: #2c3e50;
+		            padding: 0.5rem 1rem;
+		            position: fixed;
+		            width: 100%;
+		            top: 0;
+		            z-index: 1000;
+		            height: 60px;
+		        }
+
+		        .navbar-brand {
+		            color: white !important;
+		            font-size: 1.2rem;
+		            font-weight: bold;
+		            padding: 0;
+		        }
+
+		        .nav-link {
+		            color: white !important;
+		            padding: 0.5rem 1rem !important;
+		        }
+
+		        .nav-link.active {
+		            color: #3498db !important;
+		        }
+
+		        .main-content {
+		            margin-top: 60px;
+		            padding: 20px;
+		            max-width: 800px;
+		            margin-left: auto;
+		            margin-right: auto;
+		            transition: margin-right 0.3s ease-in-out;
+		        }
+
+		        .main-content.panel-open {
+		            margin-right: var(--panel-width);
+		        }
     </style>
 </head>
 <body>
-<!-- Existing Navbar -->
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<!-- Navbar -->
+	    <nav class="navbar">
+	        <div class="container d-flex align-items-center">
+				
+	            <span class="navbar-brand">SMART PARKING SPOTS</span>
+	            <div class="navbar-nav ms-auto flex-row">
+	                <a class="nav-link" href="#">Home</a>
+	                <a class="nav-link " th:href="@{/register}">Registration</a>
+	                <a class="nav-link" href="#">Smart Spots</a>
+	                <a class="nav-link" href="#">Booking</a>
+	                <a class="nav-link" href="#">Addon Services</a>
+	                <a class="nav-link" href="#">EV Charging</a>
+					<a class="nav-link" th:href="@{/login}">Login</a>
+	            </div>
+	        </div>
+	    </nav>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">FINDING PARKING LOTS MADE EASY</h1>
-        <p class="hero-description">Revolutionizing parking management with smart solutions. Experience hassle-free parking with our innovative platform.</p>
+		<div class="slider-panel" id="sliderPanel">
+		    <div class="panel-header">User Registration</div>
+		    <div class="panel-content">
+		        <ul>
+		            <li><a href="#">Add new User</a></li>
+		            <li><a href="#">Update Profile</a></li>
+		            <li><a href="#">View User by Vehicle</a></li>
+		            <li><a href="#">Modify User Contact Info</a></li>
+		            <li><a href="#">Modify User Vehicle Info</a></li>
+		            <li><a href="#">Delete User Account</a></li>
+		        </ul>
+		    </div>
+		</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <!-- Smaller heading for "LET’S BID GOODBYE..." -->
+        <h1 class="small-heading">LET’S BID GOODBYE TO ALL THE PARKING PROBLEMS!</h1>
+        
+        <!-- Larger and bold heading for "Smart Parking Application For" -->
+        <p class="large-heading">Smart Parking Application For</p>
+        
+        <!-- Dynamic words here -->
+        <div id="smart-parking-type"></div>
+        
+        <hr class="my-4">
+        
+        <!-- Static welcome text -->
+        <p id="welcome-text">Show My Parking provides you with a smarter way to park when you're on the go.</p>
+        
+        <a class="btn btn-primary btn-lg" th:href="@{/register}" role="button">Register Now</a>
     </div>
-</section>
+</div>
+
+<script>
+    let parkingTypes = ["Event Booking", "Advance Booking", "Walk-in Booking"];
+    let index = 0;
+    let parkingElement = document.getElementById("smart-parking-type");
+
+    function displayParkingTypes() {
+        // Clear any existing text and apply the animation again
+        parkingElement.style.opacity = 0; // Hide text before transition
+        setTimeout(() => {
+            parkingElement.textContent = parkingTypes[index];
+            parkingElement.style.opacity = 1; // Make text visible after change
+        }, 1000); // Wait for 1 second before showing the new text
+
+        index = (index + 1) % parkingTypes.length; // Cycle through the parking types
+    }
+
+    // Display each parking type one after another with a delay
+    setInterval(displayParkingTypes, 4000); // Change text every 4 seconds (adjust as needed)
+	
+	function togglePanel() {
+		        const panel = document.getElementById('sliderPanel');
+		        const mainContent = document.getElementById('mainContent');
+		        panel.classList.toggle('open');
+		        mainContent.classList.toggle('panel-open');
+		    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
