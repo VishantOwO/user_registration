@@ -204,10 +204,7 @@
             <div class="navbar-nav ms-auto flex-row">
                 <a class="nav-link" th:href="@{/}">Home</a>
                 <a class="nav-link active" href="#">Registration</a>
-                <a class="nav-link" href="#">Smart Spots</a>
-                <a class="nav-link" href="#">Booking</a>
-                <a class="nav-link" href="#">Addon Services</a>
-                <a class="nav-link" href="#">EV Charging</a>
+               
 				<a class="nav-link" th:href="@{/login}">Login</a>
             </div>
         </div>
@@ -215,16 +212,16 @@
 
 	<div class="slider-panel" id="sliderPanel">
 	    <div class="panel-header">User Registration</div>
-	    <div class="panel-content">
-	        <ul>
-	            <li><a th:href="#">Register new User</a></li>
-	            <li><a href="/profile/edit">Update Profile</a></li>
-	            <li><a href="#">View User by Vehicle</a></li>
-	            <li><a href="#">Modify User Contact Info</a></li>
-	            <li><a href="#">Modify User Vehicle Info</a></li>
-	            <li><a href="#">Delete User Account</a></li>
-	        </ul>
-	    </div>
+		<div class="panel-content">
+		    <ul>
+		        <li><a th:href="@{/registration}">Register new User</a></li>
+		        <li><a th:href="@{/profile/edit}">Update Profile</a></li>
+		        <li><a th:href="@{/user/vehicle}">View User by Vehicle</a></li>
+		        <li><a th:href="@{/user/contact}">Modify User Contact Info</a></li>
+		        <li><a th:href="@{/user/vehicle/edit}">Modify User Vehicle Info</a></li>
+		        <li><a th:href="@{/user/delete}">Delete User Account</a></li>
+		    </ul>
+		</div>
 	</div>
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
