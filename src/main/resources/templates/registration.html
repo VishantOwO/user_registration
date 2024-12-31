@@ -212,7 +212,7 @@
 
 	<div class="slider-panel" id="sliderPanel">
 	    <div class="panel-header">User Registration</div>
-<<<<<<< HEAD
+
 		<div class="panel-content">
 		    <ul>
 		        <li><a th:href="@{/registration}">Register new User</a></li>
@@ -223,7 +223,7 @@
 		        <li><a th:href="@{/user/delete}">Delete User Account</a></li>
 		    </ul>
 		</div>
-=======
+
 	    <div class="panel-content">
 	        <ul>
                 <li><a th:href="@{/registration}">Register new User</a></li>
@@ -234,7 +234,7 @@
                 <li><a th:href="@{/user/delete}">Delete User Account</a></li>
 	        </ul>
 	    </div>
->>>>>>> faf413f4cf320e24c37c12c063eb46e731f5e3b1
+
 	</div>
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
@@ -243,66 +243,65 @@
         </div>
         
         <div class="form-container">
-            <form th:action="@{/register}" th:object="${user}" method="post">
-                <div class="form-group">
-                    <label for="fullName" class="form-label">Full Name</label>
-                    <span class="required-asterisk">*</span>
-                    <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
-                </div>
+<form th:action="@{/register}" th:object="${user}" method="post">
+                       <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+                       <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
-                <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
-                    <span class="required-asterisk">*</span>
-                    <div class="input-group">
-                        <input type="email" class="form-control" id="email" th:field="*{email}">
-                        <button type="button" class="btn btn-verify">Verify Email</button>
-                    </div>
-                </div>
+                       <div class="form-group">
+                           <label for="fullName">Full Name</label>
+                           <input type="text" class="form-control" id="fullName" th:field="*{fullName}" required>
+                           <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+                       </div>
 
-                <div class="form-group">
-                    <label for="phoneNumber" class="form-label">Phone Number</label>
-                    <span class="required-asterisk">*</span>
-                    <div class="input-group">
-                        <input type="tel" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
-                        <button type="button" class="btn btn-verify">Verify Phone</button>
-                    </div>
-                </div>
+                       <div class="form-group">
+                           <label for="email">Email Address</label>
+                           <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                           <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                       </div>
 
-                <div class="form-group">
-                    <label for="userType" class="form-label">User Type</label>
-                    <span class="required-asterisk">*</span>
-                    <select class="form-control" id="userType" th:field="*{userType}">
-                        <option value="">Select User Type (Vehicle Owner, Driver, Parking Spot Owner)</option>
-                        <option value="VEHICLE_OWNER">Vehicle Owner</option>
-                        <option value="DRIVER">Driver</option>
-                        <option value="PARKING_OWNER">Parking Spot Owner</option>
-                    </select>
-                </div>
 
-                <div class="form-group">
-                    <label for="password" class="form-label">New Password</label>
-                    <span class="required-asterisk">*</span>
-                    <input type="password" class="form-control" id="password" th:field="*{password}">
-                </div>
+                       <!-- Added userType selection -->
+                       <div class="form-group">
+                           <label for="userType">User Type</label>
+                           <select class="form-control" id="userType" th:field="*{userType}" required>
+                               <option value="">Select User Type</option>
+                               <option value="VEHICLE_OWNER">Vehicle Owner</option>
+                               <option value="PARKING_ADMIN">Driver</option>
+							   <option value="PARKING_OWNER">Parking Spot Owner</option>
+                           </select>
+                           <span class="text-danger" th:if="${#fields.hasErrors('userType')}" th:errors="*{userType}"></span>
+                       </div>
 
-                <div class="form-group">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <span class="required-asterisk">*</span>
-                    <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}">
-                </div>
+                       <div class="form-group">
+                           <label for="phoneNumber">Phone Number</label>
+                           <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required>
+                           <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                       </div>
 
-                <div class="form-group">
-                    <label for="address" class="form-label">Address</label>
-                    <span class="required-asterisk">*</span>
-                    <textarea class="form-control" id="address" th:field="*{address}" rows="3"></textarea>
-                </div>
+                       <div class="form-group">
+                           <label for="password">Password</label>
+                           <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                           <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                       </div>
 
-                <button type="submit" class="btn btn-create">Create Account</button>
+                       <div class="form-group">
+                           <label for="confirmPassword">Confirm Password</label>
+                           <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required>
+                           <span class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+                       </div>
 
-                <p class="terms-text">
-                    By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                </p>
-            </form>
+
+
+                       <div class="form-group">
+                           <label for="address">Address</label>
+                           <textarea class="form-control" id="address" th:field="*{address}" rows="3" required></textarea>
+                           <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                       </div>
+
+
+
+                       <button type="submit" class="btn btn-create">Create Account</button>
+                   </form>
         </div>
     </div>
 
