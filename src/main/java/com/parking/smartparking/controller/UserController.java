@@ -106,7 +106,7 @@ public class UserController {
                 session.setAttribute("userFullName", user.getFullName());
 
                 log.info("User successfully logged in: {}", email);
-                return "redirect:/dashboard";  // Redirect to dashboard after successful login
+                return "redirect:/profile";  // Redirect to dashboard after successful login
             } else {
                 log.warn("Failed login attempt for email: {}", email);
                 redirectAttributes.addFlashAttribute("error", "Invalid email or password");

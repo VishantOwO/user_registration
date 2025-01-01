@@ -178,66 +178,14 @@
             cursor: pointer;
             margin-right: 10px;
         }
-		/* Slider Panel Styles */
-			.slider-panel {
-			       position: fixed;
-			       top: 60px;
-			       left: calc(-1 * var(--panel-width));
-			       width: var(--panel-width);
-			       height: calc(100vh - 60px);
-			       background-color: #2c3e50;
-			       color: white;
-			       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-			       transition: left 0.3s ease-in-out;
-			       z-index: 999;
-			       padding: 20px;
-			   }
 
-			   .slider-panel.open {
-			       left: 0;
-			   }
-
-			   .panel-header {
-			       font-size: 1.2rem;
-			       font-weight: bold;
-			       margin-bottom: 20px;
-			       border-bottom: 1px solid #eee;
-			   }
-
-			   .panel-content ul {
-			       list-style: none;
-			       padding: 0;
-			   }
-
-			   .panel-content ul li {
-			       margin-bottom: 15px;
-			   }
-
-			   .panel-content ul li a {
-			       color: white;
-			       text-decoration: none;
-			       display: block;
-			       padding: 8px 0;
-			       border-bottom: 1px solid #444;
-			       transition: color 0.2s;
-			   }
-
-			   .panel-content ul li a:hover {
-			       color: #3498db;
-			   }
-			   .menu-icon {
-			              font-size: 1.5rem;
-			              color: white;
-			              cursor: pointer;
-			              margin-right: 10px;
-			          }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container d-flex align-items-center">
-            <span class="menu-icon" onclick="togglePanel()">☰</span>
+           
             <span class="navbar-brand">SMART PARKING SPOTS</span>
             <div class="navbar-nav ms-auto flex-row">
                 <a class="nav-link" th:href="@{/}">Home</a>
@@ -249,29 +197,22 @@
             </div>
         </div>
     </nav>
-	<div class="slider-panel" id="sliderPanel">
-		    <div class="panel-header">User Registration</div>
-		    <div class="panel-content">
-		        <ul>
-		            <li><a th:href="@{/register}">Register new User</a></li>
-		            <li><a href="/profile/edit">Update Profile</a></li>
-		            <li><a href="/vehicles">View User by Vehicle</a></li>
-		            <li><a href="#">Modify User Contact Info</a></li>
-		            <li><a href="#">Modify User Vehicle Info</a></li>
-		            <li><a href="/profile">Delete User Account</a></li>
-		        </ul>
-		    </div>
-		</div>
+	
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 sidebar">
                 <h3>Dashboard Menu</h3>
                 <ul>
-                    <li><a href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i> Overview</a></li>
-                    <li><a href="/profile"><i class="fas fa-user me-2"></i> My Profile</a></li>
-                  
-                    <li><a href=""><i class="fas fa-car me-2"></i> My Vehicles</a></li>
+					<li><a href="/profile"> View Profile</a></li>
+							<li><a href="/change-password"> Change Password</a></li>
+							
+							
+										          
+					        <li><a href="/vehicles">View User by Vehicle</a></li>
+					        <li><a href="/profile/edit">Modify User Contact Info</a></li>
+					        <li><a href="/vehicles">Modify User Vehicle Info</a></li>
+					        <li><a href="/profile">Delete User Account</a></li>
                   
                 </ul>
             </div>
@@ -379,14 +320,6 @@
         </div>
     </div>
 
-	<script>
-	    function togglePanel() {
-	        const panel = document.getElementById('sliderPanel');
-	        const mainContent = document.getElementById('mainContent');
-	        panel.classList.toggle('open');
-	        mainContent.classList.toggle('panel-open');
-	    }
-	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>

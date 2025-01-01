@@ -148,25 +148,38 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="container d-flex align-items-center">
-      <span class="navbar-brand">SMART PARKING SPOTS</span>
-      <div class="navbar-nav ms-auto flex-row">
-        <a class="nav-link" th:href="@{/}">Home</a>
-        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      <div class="container d-flex align-items-center">
+          <span class="menu-icon" onclick="togglePanel()">☰</span>
+          <span class="navbar-brand">SMART PARKING SPOTS</span>
+          <div class="navbar-nav ms-auto flex-row">
+              <a class="nav-link" th:href="@{/}">Home</a>
+              <a class="nav-link" href="#">Smart Spots</a>
+              <a class="nav-link" href="#">Booking</a>
+              <a class="nav-link" href="#">Addon Services</a>
+              <a class="nav-link" href="#">EV Charging</a>
+              <a class="nav-link" th:href="@{/logout}">Logout</a>
+          </div>
       </div>
-    </div>
   </nav>
 
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-3 sidebar">
-        <h3>Edit Profile</h3>
-        <ul>
-          <li><a href="/profile"><i class="fas fa-user me-2"></i> View Profile</a></li>
-          <li><a href="/dashboard"><i class="fas fa-arrow-left me-2"></i> Back to Dashboard</a></li>
-        </ul>
-      </div>
+		<div class="col-md-3 sidebar">
+				                <h3>Edit profile</h3>
+				                <ul>
+									<li><a href="/profile"> View Profile</a></li>
+											<li><a href="/change-password"> Change Password</a></li>
+											
+											<li><a href="/dashboard">Go To Dashboard</a></li>
+														          
+									        <li><a href="/vehicles">View User by Vehicle</a></li>
+									        <li><a href="/profile/edit">Modify User Contact Info</a></li>
+									        <li><a href="/vehicles">Modify User Vehicle Info</a></li>
+									        <li><a href="/profile">Delete User Account</a></li>
+				                  
+				                </ul>
+				            </div>
+
 
       <!-- Main Content -->
       <div class="col-md-9 main-content">

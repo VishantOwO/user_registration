@@ -174,74 +174,43 @@
 		.d-flex.justify-content-end.mt-4 {
 		    gap: 1rem;
 		}
-		/* Slider Panel Styles */
-					.slider-panel {
-					       position: fixed;
-					       top: 60px;
-					       left: calc(-1 * var(--panel-width));
-					       width: var(--panel-width);
-					       height: calc(100vh - 60px);
-					       background-color: #2c3e50;
-					       color: white;
-					       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-					       transition: left 0.3s ease-in-out;
-					       z-index: 999;
-					       padding: 20px;
-					   }
-
-					   .slider-panel.open {
-					       left: 0;
-					   }
-
-					   .panel-header {
-					       font-size: 1.2rem;
-					       font-weight: bold;
-					       margin-bottom: 20px;
-					       border-bottom: 1px solid #eee;
-					   }
-
-					   .panel-content ul {
-					       list-style: none;
-					       padding: 0;
-					   }
-
-					   .panel-content ul li {
-					       margin-bottom: 15px;
-					   }
-
-					   .panel-content ul li a {
-					       color: white;
-					       text-decoration: none;
-					       display: block;
-					       padding: 8px 0;
-					       border-bottom: 1px solid #444;
-					       transition: color 0.2s;
-					   }
-
-					   .panel-content ul li a:hover {
-					       color: #3498db;
-					   }
-					   .menu-icon {
-					              font-size: 1.5rem;
-					              color: white;
-					              cursor: pointer;
-					              margin-right: 10px;
-					          }
+		
     </style>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+	<nav class="navbar">
+	        <div class="container d-flex align-items-center">
+	           
+	            <span class="navbar-brand">SMART PARKING SPOTS</span>
+	            <div class="navbar-nav ms-auto flex-row">
+	                <a class="nav-link" th:href="@{/}">Home</a>
+	                <a class="nav-link" href="#">Smart Spots</a>
+	                <a class="nav-link" href="#">Booking</a>
+	                <a class="nav-link" href="#">Addon Services</a>
+	                <a class="nav-link" href="#">EV Charging</a>
+	                <a class="nav-link" th:href="@{/logout}">Logout</a>
+	            </div>
+	        </div>
+	    </nav>
+		
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-3 sidebar">
-            <h3>Vehicle Management</h3>
-            <ul>
-                <li><a href="/vehicles"><i class="bi bi-list"></i> My Vehicles</a></li>
-                <li><a href="/vehicles/add"><i class="bi bi-plus-circle"></i> Add New Vehicle</a></li>
-                <li><a href="/dashboard"><i class="bi bi-speedometer2"></i> Back to Dashboard</a></li>
-            </ul>
-        </div>
+		<div class="col-md-3 sidebar">
+		                <h3>Modify User vechile Info</h3>
+		                <ul>
+							<li><a href="/profile"> View Profile</a></li>
+									<li><a href="/change-password"> Change Password</a></li>
+									
+									<li><a href="/dashboard">Go To Dashboard</a></li>
+												          
+							        <li><a href="/vehicles">View User by Vehicle</a></li>
+							        <li><a href="/profile/edit">Modify User Contact Info</a></li>
+							        <li><a href="/vehicles">Modify User Vehicle Info</a></li>
+							        <li><a href="/profile">Delete User Account</a></li>
+		                  
+		                </ul>
+		            </div>
 
         <!-- Main Content -->
         <div class="col-md-9 main-content">
