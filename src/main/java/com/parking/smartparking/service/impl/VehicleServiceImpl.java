@@ -22,6 +22,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private UserRepository userRepository;
 
+    public Vehicle getLatestVehicle() {
+        return vehicleRepository.findTopByOrderByRegisteredAtDesc();
+    }
+
     @Override
     public List<Vehicle> getVehiclesByUserId(Long userId) {
         return vehicleRepository.findByUserId(userId);
@@ -71,4 +75,5 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setModel(vehicleDTO.getModel());
         vehicle.setColor(vehicleDTO.getColor());
     }
+
 }

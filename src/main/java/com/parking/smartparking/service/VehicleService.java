@@ -14,6 +14,7 @@ public interface VehicleService {
     Vehicle getVehicleByIdAndUserId(Long vehicleId, Long userId);
     Vehicle updateVehicle(Long vehicleId, Long userId, VehicleDTO vehicleDTO);
 
+    Vehicle getLatestVehicle();
 }
 
 

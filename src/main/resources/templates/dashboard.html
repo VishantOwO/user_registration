@@ -289,10 +289,13 @@
                                     </a>
                                     <a href="#" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">Vehicle Added</h6>
-                                            <small>2 days ago</small>
+                                            <h6 class="mb-1">Latest Vehicle Added</h6>
+                                            <small th:text="${latestVehicle.registeredAt}">2 days ago</small>
                                         </div>
-                                        <p class="mb-1">New vehicle registered: KA-01-XX-1234</p>
+                                        <p class="mb-1" th:text="${'Vehicle Number: ' + latestVehicle.vehicleNumber}"></p>
+                                        <p class="mb-1" th:text="${'Type: ' + latestVehicle.vehicleType}"></p>
+                                        <p class="mb-1" th:text="${'Model: ' + latestVehicle.manufacturer + ' ' + latestVehicle.model}"></p>
+                                        <p class="mb-1" th:text="${'Color: ' + latestVehicle.color}"></p>
                                     </a>
                                 </div>
                             </div>

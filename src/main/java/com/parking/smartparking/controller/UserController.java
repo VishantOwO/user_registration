@@ -4,6 +4,8 @@ import com.parking.smartparking.dto.UserProfileDTO;
 import com.parking.smartparking.dto.UserRegistrationDTO;
 import com.parking.smartparking.entity.User;
 import com.parking.smartparking.service.UserService;
+import com.parking.smartparking.service.VehicleService;
+import com.parking.smartparking.service.impl.VehicleServiceImpl;
 import com.parking.smartparking.util.PasswordMatchValidator;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     @Autowired
     private PasswordMatchValidator passwordMatchValidator;
@@ -135,6 +140,7 @@ public class UserController {
 
         // Add user information to model
         model.addAttribute("userFullName", session.getAttribute("userFullName"));
+        model.addAttribute("latestVehicle", vehicleService.getLatestVehicle());
         return "dashboard";  // You'll need to create this view
     }
 
