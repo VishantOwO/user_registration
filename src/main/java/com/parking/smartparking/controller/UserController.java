@@ -1,5 +1,6 @@
 package com.parking.smartparking.controller;
 
+import com.parking.smartparking.dto.PasswordChangeDTO;
 import com.parking.smartparking.dto.UserProfileDTO;
 import com.parking.smartparking.dto.UserRegistrationDTO;
 import com.parking.smartparking.entity.User;
@@ -240,5 +241,63 @@ public class UserController {
         }
     }
 
+    // Add these methods to your existing UserController class
+
+    @GetMapping("/change-password")
+    public String showChangePasswordForm(HttpSession session, Model model) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        if (!model.containsAttribute("passwordChangeRequest")) {
+            model.addAttribute("passwordChangeRequest", new PasswordChangeDTO());
+        }
+
+        log.info("Showing change password form for user ID: {}", userId);
+        return "change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@Valid @ModelAttribute("passwordChangeRequest") PasswordChangeDTO passwordChangeDTO,
+                                 BindingResult result,
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        try {
+            log.info("Processing password change request for user ID: {}", userId);
+
+            // Custom password match validation similar to registration
+            if (!passwordChangeDTO.getNewPassword().equals(passwordChangeDTO.getConfirmNewPassword())) {
+                result.rejectValue("confirmNewPassword", "password.mismatch", "New passwords do not match");
+            }
+
+            // Verify current password
+            if (!userService.verifyCurrentPassword(userId, passwordChangeDTO.getCurrentPassword())) {
+                result.rejectValue("currentPassword", "password.incorrect", "Current password is incorrect");
+            }
+
+            if (result.hasErrors()) {
+                log.warn("Validation errors in password change: {}", result.getAllErrors());
+                return "change-password";
+            }
+
+            // Process password change
+            userService.changePassword(userId, passwordChangeDTO.getNewPassword());
+
+            log.info("Password successfully changed for user ID: {}", userId);
+            redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
+            return "redirect:/profile";
+
+        } catch (Exception e) {
+            log.error("Error changing password: ", e);
+            redirectAttributes.addFlashAttribute("errorMessage", "Error changing password: " + e.getMessage());
+            return "redirect:/change-password";
+        }
+    }
 
 }

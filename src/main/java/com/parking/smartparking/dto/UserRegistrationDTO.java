@@ -3,13 +3,16 @@ package com.parking.smartparking.dto;
 import jakarta.validation.constraints.*;
 
 public class UserRegistrationDTO {
-
     @NotBlank(message = "Full name is required")
     @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
     private String fullName;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Please provide a valid email address")
+    @Pattern(
+            regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+            message = "Please provide a valid email address. Example: user@domain.com, user@domain.org, user@domain.in"
+    )
     private String email;
 
     @NotBlank(message = "Phone number is required")
