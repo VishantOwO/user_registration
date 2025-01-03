@@ -19,6 +19,7 @@ public interface UserService {
 
     void deactivateAccount(Long userId);
     void deleteAccount(Long userId);
-
+    boolean verifyCurrentPassword(Long userId, String currentPassword);
+    void changePassword(Long userId, String newPassword);
 
 }
