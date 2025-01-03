@@ -103,4 +103,30 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Error hashing password", e);
         }
     }
+
+    // Add these methods to your UserServiceImpl class
+
+    @Override
+    public boolean verifyCurrentPassword(Long userId, String currentPassword) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            String hashedInputPassword = hashPassword(currentPassword);
+            return hashedInputPassword.equals(user.getPassword());
+        }
+        return false;
+    }
+
+    @Override
+    public void changePassword(Long userId, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Hash the new password using the existing hash method
+        String hashedPassword = hashPassword(newPassword);
+        user.setPassword(hashedPassword);
+
+        userRepository.save(user);
+    }
 }

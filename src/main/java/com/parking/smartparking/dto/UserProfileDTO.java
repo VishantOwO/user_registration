@@ -9,6 +9,10 @@ public class UserProfileDTO {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Please provide a valid email address")
+    @Pattern(
+            regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+            message = "Please provide a valid email address. Example: user@domain.com, user@domain.org, user@domain.in"
+    )
     private String email;
 
     @NotBlank(message = "Phone number is required")
@@ -19,7 +23,7 @@ public class UserProfileDTO {
     @Size(min = 5, max = 200, message = "Address must be between 5 and 200 characters")
     private String address;
 
-    // Getters and Setters
+    // Getters and Setters remain the same
     public String getFullName() {
         return fullName;
     }
