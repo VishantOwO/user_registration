@@ -23,7 +23,11 @@ public class VehicleServiceImpl implements VehicleService {
     private UserRepository userRepository;
 
     public Vehicle getLatestVehicle() {
-        return vehicleRepository.findTopByOrderByRegisteredAtDesc();
+        try {
+            return vehicleRepository.findTopByOrderByRegisteredAtDesc();
+        } catch (Exception e) {
+            return null; // Return null if no vehicle exists
+        }
     }
 
     @Override

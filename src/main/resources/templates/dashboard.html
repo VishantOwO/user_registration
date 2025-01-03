@@ -287,7 +287,8 @@
                                         </div>
                                         <p class="mb-1">$25 for Spot B05</p>
                                     </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
+                                    <!-- Latest Vehicle Section with null check -->
+                                    <div th:if="${latestVehicle != null}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
                                             <h6 class="mb-1">Latest Vehicle Added</h6>
                                             <small th:text="${latestVehicle.registeredAt}">2 days ago</small>
@@ -296,7 +297,14 @@
                                         <p class="mb-1" th:text="${'Type: ' + latestVehicle.vehicleType}"></p>
                                         <p class="mb-1" th:text="${'Model: ' + latestVehicle.manufacturer + ' ' + latestVehicle.model}"></p>
                                         <p class="mb-1" th:text="${'Color: ' + latestVehicle.color}"></p>
-                                    </a>
+                                    </div>
+                                    <div th:if="${latestVehicle == null}" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">No Vehicles Added</h6>
+                                            <small>-</small>
+                                        </div>
+                                        <p class="mb-1">Click on 'Add New Vehicle' to register your first vehicle</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
